@@ -67,7 +67,10 @@
                    email
                    name="email"
                    formControlName="email"
-                   [ngClass]="{'is-invalid': emailMessage }" />
+                   [ngClass]="{'is-invalid':mensajes?.emailMessage }" />
+            <span class="invalid-feedback">
+              {{mensajes?.emailMessage}}
+            </span>
           </div>
         </div>
         <div class="form-group row mb-2">
@@ -79,19 +82,12 @@
                    type="email"
                    placeholder="Confirm Email (required)"
                    formControlName="confirmEmail"
-                   [ngClass]="{'is-invalid': customerForm.get('emailGroup').errors ||
-                                           ((customerForm.get('emailGroup.confirmEmail').touched ||
-                                            customerForm.get('emailGroup.confirmEmail').dirty) &&
-                                            !customerForm.get('emailGroup.confirmEmail').valid) }" />
+                   [ngClass]="{'is-invalid': mensajes?.emailConfirMessage}" />
             <span class="invalid-feedback">
-              <span *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
-                Please confirm your email address.
-              </span>
-              <span *ngIf="customerForm.get('emailGroup').errors?.match">
-                The confirmation does not match the email address.
-              </span>
+              {{mensajes?.emailConfirMessage}}
             </span>
-          </div>
+
+         </div>
         </div>
       </div>
 
@@ -173,6 +169,8 @@
         <div formArrayName="addresses"
              *ngFor="let address of addresses.controls; let i=index">
           <div [formGroupName]="i">
+
+            {{ address.value | json }}
             <div class="form-group row mb-2">
               <label class="col-md-2 col-form-label pt-0">Address Type</label>
               <div class="col-md-8">

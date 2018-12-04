@@ -43,14 +43,18 @@ function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
 })
 export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
-  customer = new Customer();
   emailMessage: string;
+  mensajes: Object = {
+    emailMessage: null,
+    emailConfirMessage: null
+  };
 
   constructor(private fb: FormBuilder) { }
 
   private validationMessages = {
     required: 'Please enter your mail address.',
-    email: 'Please enter a valid email address.'
+    email: 'Please enter a valid email address.',
+    match: 'No coinciden los emails'
   };
 
   get addresses(): FormArray {
@@ -63,7 +67,7 @@ export class CustomerComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.minLength(40)]],
       emailGroup: this.fb.group({
         email: [null, [Validators.required, Validators.email]],
-        confirmEmail: [null, [Validators.required]]
+        confirmEmail: [null, [Validators.required, Validators.email]]
       }, { validator: emailMatcher }), /* asi se llama a la funcion que validará si los email son iguales */
       phone: [null],
       notification: 'email',
@@ -78,11 +82,16 @@ export class CustomerComponent implements OnInit {
 
     const emailControl = this.customerForm.get('emailGroup.email');
     emailControl.valueChanges
-    .pipe(
-      debounceTime(1000)
-    )
+    .pipe(debounceTime(1000))
     .subscribe( value => {
-      this.setMessage(emailControl);
+      this.setMessage_2(emailControl, 'emailMessage');
+    });
+
+    const emailConfirmControl = this.customerForm.get('emailGroup.confirmEmail');
+    emailConfirmControl.valueChanges
+    .pipe(debounceTime(1000))
+    .subscribe( value => {
+      this.setMessage_2(emailConfirmControl, 'emailConfirMessage');
     });
 /*     this.customerForm = new FormGroup({
       firstName: new FormControl(),
@@ -123,7 +132,6 @@ export class CustomerComponent implements OnInit {
     } else {
       phoneControl.clearValidators();
     }
-
     phoneControl.updateValueAndValidity();
   }
 
@@ -133,6 +141,22 @@ export class CustomerComponent implements OnInit {
       this.emailMessage = Object.keys(c.errors).map(key => this.emailMessage += this.validationMessages[key]).join(' ');
     }
   }
+
+  setMessage_2(c: AbstractControl, msj: string): void {
+    this.mensajes[msj] = '';
+    if ((c.touched || c.dirty) && c.errors) {
+      this.mensajes[msj] = Object.keys(c.errors)
+        .map(key => this.mensajes[msj] += this.validationMessages[key]).join(' ');
+    }
+    if ((c.touched || c.dirty)  &&  this.customerForm.get('emailGroup').errors) {
+          const match = this.customerForm.get('emailGroup').errors.match;
+          if (match) {
+            this.mensajes[msj] = '';
+            this.mensajes[msj] = this.validationMessages['match'];
+          }
+    }
+  }
+
 
   buildAddress(): FormGroup {
     return this.fb.group({
