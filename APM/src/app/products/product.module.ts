@@ -22,9 +22,7 @@ import { ProductEditGuard } from './product-edit.guard';
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', component: ProductDetailComponent },
       {
-        path: 'products/:id/edit',
-        canDeactivate: [ProductEditGuard],
-        component: ProductEditComponent
+        path: 'products/:id/edit', canDeactivate: [ProductEditGuard], component: ProductEditComponent
       }
     ])
   ],

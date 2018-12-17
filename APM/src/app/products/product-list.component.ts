@@ -13,8 +13,10 @@ export class ProductListComponent implements OnInit {
   imageMargin = 2;
   showImage = false;
   errorMessage = '';
+  filteredProducts: Product[] = [];
+  products: Product[] = [];
 
-  _listFilter = '';
+  private _listFilter = '';
   get listFilter(): string {
     return this._listFilter;
   }
@@ -23,8 +25,6 @@ export class ProductListComponent implements OnInit {
     this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
   }
 
-  filteredProducts: Product[] = [];
-  products: Product[] = [];
 
   constructor(private productService: ProductService) { }
 
@@ -48,4 +48,8 @@ export class ProductListComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
   }
+
+  onRatingClicked(message: String): void {
+    this.pageTitle = 'Product  List ' + message;
+}
 }
