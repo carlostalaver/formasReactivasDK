@@ -81,8 +81,8 @@
                    placeholder="Confirm Email (required)"
                    formControlName="confirmEmail"
                    [ngClass]="{'is-invalid': customerForm.get('emailGroup').errors ||
-                                             ((customerForm.get('emailGroup.confirmEmail').touched || 
-                                              customerForm.get('emailGroup.confirmEmail').dirty) && 
+                                             ((customerForm.get('emailGroup.confirmEmail').touched ||
+                                              customerForm.get('emailGroup.confirmEmail').dirty) &&
                                               !customerForm.get('emailGroup.confirmEmail').valid) }" />
             <span class="invalid-feedback">
               <span *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
@@ -144,8 +144,8 @@
                  id="ratingId"
                  type="number"
                  formControlName="rating"
-                 [ngClass]="{'is-invalid': (customerForm.get('rating').touched || 
-                                           customerForm.get('rating').dirty) && 
+                 [ngClass]="{'is-invalid': (customerForm.get('rating').touched ||
+                                           customerForm.get('rating').dirty) &&
                                            !customerForm.get('rating').valid }" />
           <span class="invalid-feedback">
             <span *ngIf="customerForm.get('rating').errors?.range">
@@ -216,8 +216,8 @@
                        type="text"
                        placeholder="Street address (required)"
                        formControlName="street1"
-                       [ngClass]="{'is-invalid': (address.controls.street1.touched || 
-                                                  address.controls.street1.dirty) && 
+                       [ngClass]="{'is-invalid': (address.controls.street1.touched ||
+                                                  address.controls.street1.dirty) &&
                                                   !address.controls.street1.valid }">
                 <span class="invalid-feedback">
                   <span *ngIf="address.controls.street1.errors?.required">
