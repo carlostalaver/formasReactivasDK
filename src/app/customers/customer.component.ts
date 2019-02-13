@@ -12,7 +12,7 @@ function ratingRange( c: AbstractControl): {[key: string]: boolean} | null {
   return void 0;
 }
 
-/* Creando un fabrica de funciones */
+/* Creando un fabrica de funciones puedo pasar los parametros que desee*/
 function ratingRange2(min: number, max: number): ValidatorFn {
   return ( c: AbstractControl): {[key: string]: boolean} | null => {
     if ( c.value !== null && (isNaN(c.value) || c.value < min || c.value > max)) {
@@ -135,20 +135,20 @@ export class CustomerComponent implements OnInit {
     phoneControl.updateValueAndValidity();
   }
 
-  setMessage(c: AbstractControl): void {
+/*   setMessage(c: AbstractControl): void {
     this.emailMessage = '';
     if ((c.touched || c.dirty) && c.errors) {
       this.emailMessage = Object.keys(c.errors).map(key => this.emailMessage += this.validationMessages[key]).join(' ');
     }
-  }
+  } */
 
   setMessage_2(c: AbstractControl, msj: string): void {
     this.mensajes[msj] = '';
-    if ((c.touched || c.dirty) && c.errors) {
+    if ((c.untouched || c.dirty) && c.errors) {
       this.mensajes[msj] = Object.keys(c.errors)
         .map(key => this.mensajes[msj] += this.validationMessages[key]).join(' ');
     }
-    if ((c.touched || c.dirty)  &&  this.customerForm.get('emailGroup').errors) {
+    if ((c.untouched || c.dirty)  &&  this.customerForm.get('emailGroup').errors) {
           const match = this.customerForm.get('emailGroup').errors.match;
           if (match) {
             this.mensajes[msj] = '';
