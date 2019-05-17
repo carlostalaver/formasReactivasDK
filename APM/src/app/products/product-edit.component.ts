@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators, FormControl
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription, fromEvent, merge } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
@@ -20,7 +20,6 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   pageTitle = 'Product Edit';
   errorMessage: string;
   productForm: FormGroup;
-
   product: Product;
   private sub: Subscription;
 
@@ -31,6 +30,10 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get tags(): FormArray {
     return <FormArray>this.productForm.get('tags');
+  }
+
+  addTag(): void {
+    this.tags.push(new FormControl());
   }
 
   constructor(
@@ -83,11 +86,12 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Observe el evento de desenfoque de cualquier elemento de entrada en el formulario.
-    const controlBlurs: Observable<any>[] = this.formInputElements
-      .map((formControl: ElementRef) =>  fromEvent(formControl.nativeElement, 'blur'));
 
-    // Merge the blur event observable with the valueChanges observable
+   // Observe el evento de desenfoque de cualquier elemento de entrada en el formulario.
+    const controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+
+       // Merge the blur event observable with the valueChanges observable
     merge(this.productForm.valueChanges, ...controlBlurs).pipe(
       debounceTime(800)
     ).subscribe(value => {
@@ -95,22 +99,23 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  addTag(): void {
-    this.tags.push(new FormControl());
-  }
 
   deleteTag(index: number): void {
+    console.log('antes de la eliminacion ', this.tags);
     this.tags.removeAt(index);
+    console.log('despues de la eliminacion ', this.tags);
+
     this.tags.markAsDirty();
+
   }
 
   getProduct(id: number): void {
 
     console.log(' el id ', id);
     this.productService.getProduct(id)
-    .subscribe(
-      (product: Product) => this.displayProduct(product),
-      (error: any) => this.errorMessage = <any>error
+      .subscribe(
+        (product: Product) => this.displayProduct(product),
+        (error: any) => this.errorMessage = <any>error
       );
   }
 
@@ -134,9 +139,8 @@ export class ProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
       description: this.product.description
     });
 
-    console.log('los tags ', this.product.tags);
     this.productForm.setControl('tags', this.fb.array(this.product.tags || []));
-
+    console.log('antes de la eliminacion ', this.tags.controls);
   }
 
   deleteProduct(): void {
