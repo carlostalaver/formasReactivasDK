@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Place your settings in this file to overwrite default and user settings.
 {
     	"files.exclude": {
@@ -6,4 +7,9 @@
         "**/*.js": true,
         "**/*.map": true
 	}
+=======
+{
+  "files.autoSave": "afterDelay",
+  "html.format.wrapAttributes": "force-aligned"
+>>>>>>> af244dc149e57adf9d8fefeca1bddf0a64806ff0
 }
