@@ -38,9 +38,7 @@
                  id="lastNameId"
                  type="text"
                  placeholder="Last Name (required)"
-                 required
                  formControlName="lastName"
-                 maxlength="50"
                  name="lastName"
                  [ngClass]="{'is-invalid': (customerForm.get('lastName').touched || customerForm.get('lastName').dirty) && !customerForm.get('lastName').valid }" />
           <span class="invalid-feedback">
@@ -53,6 +51,9 @@
           </span>
         </div>
       </div>
+
+
+
       <div formGroupName="emailGroup">
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label"
@@ -63,9 +64,6 @@
                    id="emailId"
                    type="email"
                    placeholder="Email (required)"
-                   required
-                   email
-                   name="email"
                    formControlName="email"
                    [ngClass]="{'is-invalid':mensajes?.emailMessage }" />
             <span class="invalid-feedback">
@@ -90,6 +88,9 @@
          </div>
         </div>
       </div>
+
+
+
 
       <div class="form-group row mb-2">
         <div class="col-md-8">
@@ -169,7 +170,6 @@
         <div formArrayName="addresses"
              *ngFor="let address of addresses.controls; let i=index">
           <div [formGroupName]="i">
-
             {{ address.value | json }}
             <div class="form-group row mb-2">
               <label class="col-md-2 col-form-label pt-0">Address Type</label>
