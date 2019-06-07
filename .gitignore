@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-typings
-**/app/**/*.js
-**/app/**/*.map
-node_modules
-jspm_packages
-bower_components
-
-**/*.log/*.*
-**/*.log
-
-.vs
-**/*.sou
-**/*.user
-bin
-obj
-packages
-=======
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -55,4 +37,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
->>>>>>> af244dc149e57adf9d8fefeca1bddf0a64806ff0
