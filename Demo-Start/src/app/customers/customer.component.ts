@@ -81,10 +81,8 @@ export class CustomerComponent implements OnInit {
 
     this.customerForm.get('emailGroup').valueChanges.subscribe(valor => {
       // my code
+      console.log('%cemailGroup', 'background-color: aqua;', valor );
     });
-
-
-
 
     const emailControl = this.customerForm.get('emailGroup.email');
     emailControl.valueChanges
@@ -149,7 +147,8 @@ export class CustomerComponent implements OnInit {
   setMessage(c: AbstractControl): void {
     this.emailMessage = '';
     if ((!c.untouched || c.dirty) && c.errors) {
-      this.emailMessage = Object.keys(c.errors).map(key => this.emailMessage += this.validationMessages[key]).join(' ');
+      this.emailMessage = Object.keys(c.errors)
+        .map(key => this.emailMessage += this.validationMessages[key]).join(' ');
     }
   }
 
@@ -173,9 +172,11 @@ export class CustomerComponent implements OnInit {
     return (this.customerForm.get('addresses') as FormArray);
    // return <FormArray>this.customerForm.get('addresses');
   }
+
   addAddress(): void {
     this.addresses.push(this.buildAddress());
   }
+
   buildAddress(): FormGroup {
     return this.fb.group({
       addressType: 'home',

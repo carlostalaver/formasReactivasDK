@@ -4,13 +4,10 @@
   </div>
 
   <div class="card-body">
-    <form novalidate
-          (ngSubmit)="save()"
-          [formGroup]="customerForm">
+    <form novalidate  (ngSubmit)="save()" [formGroup]="customerForm">
 
       <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="firstNameId">First Name</label>
+        <label class="col-md-2 col-form-label" for="firstNameId">First Name</label>
         <div class="col-md-8">
           <input class="form-control"
                  id="firstNameId"
@@ -31,8 +28,7 @@
       </div>
 
       <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="lastNameId">Last Name</label>
+        <label class="col-md-2 col-form-label" for="lastNameId">Last Name</label>
         <div class="col-md-8">
           <input class="form-control"
                  id="lastNameId"
@@ -55,10 +51,7 @@
 
 
       <div formGroupName="emailGroup">
-        <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label"
-                 for="emailId">Email</label>
-
+        <div class="form-group row mb-2">  <label class="col-md-2 col-form-label"  for="emailId">Email</label>
           <div class="col-md-8">
             <input class="form-control"
                    id="emailId"
@@ -85,7 +78,7 @@
               {{mensajes?.emailConfirMessage}}
             </span>
 
-         </div>
+          </div>
         </div>
       </div>
 
@@ -147,9 +140,9 @@
           </div>
         </div>
       </div>
+
       <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label"
-               for="ratingId">Rating</label>
+        <label class="col-md-2 col-form-label" for="ratingId">Rating</label>
         <div class="col-md-8">
           <input class="form-control"
                  id="ratingId"
@@ -177,7 +170,7 @@
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
                     <input class="form-check-input"
-                           id="addressType1Id"
+                           id="{{'addressTypeHomeId'+i}}"
                            type="radio"
                            value="home"
                            formControlName="addressType"
@@ -187,7 +180,7 @@
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
                     <input class="form-check-input"
-                           id="addressType1Id"
+                           id="{{'addressTypeWorkId'+i}}"
                            type="radio"
                            value="work"
                            formControlName="addressType"
@@ -197,7 +190,7 @@
                 <div class="form-check form-check-inline">
                   <label class="form-check-label">
                     <input class="form-check-input"
-                           id="addressType1Id"
+                           id="{{'addressTypeOtherId'+i}}"
                            type="radio"
                            value="other"
                            formControlName="addressType"
@@ -245,14 +238,8 @@
                        name="city">
               </div>
               <div class="col-md-3">
-                <select class="form-control"
-                        id="stateId"
-                        formControlName="state"
-                        name="state">
-                  <option value=""
-                          disabled
-                          selected
-                          hidden>Select a State...</option>
+                <select class="form-control" id="stateId"  formControlName="state"  name="state">
+                  <option value=""  disabled selected  hidden>Select a State...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
